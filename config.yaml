@@ -1,0 +1,19 @@
+cookie:
+  expiry_days: 30
+  key: cookie_signature_key
+  name: unique_key
+credentials:
+  usernames:
+    test1:
+      email: test1@gmail.com
+      logged_in: false
+      name: Test 1
+      password: $2b$12$zyj/OZeq.KyuOo/zhXc.GuBm/L7T6m8ZJ7SewBeM9brcaw8QRQQsK
+    test2:
+      email: test2@gmail.com
+      logged_in: false
+      name: Test 2
+      password: $2b$12$6yZaoK34c7YfLgocV9I.4uwBtd/mhO267nYUtODWz65yt9tDO7.XS
+preauthorized:
+  emails:
+  - admin@gmail.com
