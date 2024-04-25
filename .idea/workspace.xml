@@ -4,15 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5657263d-8447-43f3-b8d9-452d9c4a3a95" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/Authenticator.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="5657263d-8447-43f3-b8d9-452d9c4a3a95" name="Changes" comment="Dockerfile added">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Homepage.py" beforeDir="false" afterPath="$PROJECT_DIR$/Homepage.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/Behavioral Screen.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/Behavioral Screen.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/CareerPlanning/Step-1.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/CareerPlanning/Step-1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/Professional Screen.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/Professional Screen.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/Resume Screen.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/Resume Screen.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/To do List.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/To do List.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/Todo List2.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/Todo List2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,6 +33,9 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/.gitignore" root0="FORCE_HIGHLIGHTING" />
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
 }</component>
@@ -41,16 +45,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "E:/workspace-latest/llmapps/RnsAIApps",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/workspace-latest/llmapps/RnsAIApps&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\workspace-latest\llmapps\RnsAIApps" />
       <recent name="E:\workspace-latest\llmapps\Authenticator" />
       <recent name="E:\workspace-latest\llmapps\Authenticator\.streamlit" />
       <recent name="E:\workspace-latest\llmapps\Authenticator\pages" />
@@ -72,6 +77,19 @@
       <option name="presentableId" value="Default" />
       <updated>1709577850503</updated>
     </task>
+    <task id="LOCAL-00001" summary="Dockerfile added">
+      <option name="closed" value="true" />
+      <created>1709750207787</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1709750207787</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Dockerfile added" />
+    <option name="LAST_COMMIT_MESSAGE" value="Dockerfile added" />
   </component>
 </project>

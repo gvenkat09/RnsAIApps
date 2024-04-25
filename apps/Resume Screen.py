@@ -20,10 +20,25 @@ from streamlit_lottie import st_lottie
 import json
 from IPython.display import Audio
 import nltk
-# from st_pages import hide_pages
+from st_pages import hide_pages
 #
 # hide_pages(['Behavioral Interview'])
-# hide_pages(['Professional Interview'])
+hide_pages(['ToDo List'])
+
+# Custom CSS to inject into the Streamlit page
+hide_streamlit_style = """
+        <style>
+            #MainMenu {visibility: hidden;}
+            footer {visibility: hidden;}
+            #root > div:nth-child(1) > div > div > div > div > section > div {
+                padding-top: 0rem;
+            }
+            .reportview-container .main .block-container{
+                padding-top: 0rem;
+            }
+        </style>
+"""
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 
 def load_lottiefile(filepath: str):
@@ -31,23 +46,23 @@ def load_lottiefile(filepath: str):
         return json.load(f)
 
 
-st_lottie(load_lottiefile("images/welcome.json"), speed=1, reverse=False, loop=True, quality="high", height=50)
+st_lottie(load_lottiefile("images/welcome.json"), speed=1, reverse=False, loop=False, quality="high", height=50)
 
-st.markdown("""\n""")
-st.markdown("""\n""")
-st.write("FAQs")
-st.markdown("""\n""")
-
-# st.markdown("""solutions to potential errors:""")
-with st.expander("""Why did I encounter errors when I tried to talk to the AI Interviewer?"""):
-    st.write("""This is because the app failed to record. Make sure that your microphone is connected and that you have given permission to the browser to access your microphone.""")
-with st.expander("""Why did I encounter errors when I tried to upload my resume?"""):
-    st.write("""
-    Please make sure your resume is in pdf format. More formats will be supported in the future.
-    """)
-
-st.markdown("""\n""")
-st.markdown("""\n""")
+# st.markdown("""\n""")
+# st.markdown("""\n""")
+# st.write("FAQs")
+# st.markdown("""\n""")
+#
+# # st.markdown("""solutions to potential errors:""")
+# with st.expander("""Why did I encounter errors when I tried to talk to the AI Interviewer?"""):
+#     st.write("""This is because the app failed to record. Make sure that your microphone is connected and that you have given permission to the browser to access your microphone.""")
+# with st.expander("""Why did I encounter errors when I tried to upload my resume?"""):
+#     st.write("""
+#     Please make sure your resume is in pdf format. More formats will be supported in the future.
+#     """)
+#
+# st.markdown("""\n""")
+# st.markdown("""\n""")
 st.markdown("""\n""")
 
 st.markdown("## Get Ready on Resume Evaluation")
@@ -93,7 +108,7 @@ def initialize_session_state_resume():
     # interview history
     if "resume_history" not in st.session_state:
         st.session_state.resume_history = []
-        st.session_state.resume_history.append(Message(origin="ai", message="Hello, I am your interivewer today. I will ask you some questions regarding your resume and your experience. Please start by saying hello or introducing yourself. Note: The maximum length of your answer is 4097 tokens!"))
+        st.session_state.resume_history.append(Message(origin="ai", message="Hello, I am your interivewer today. I will ask you some questions regarding your resume and your experience. Please start by introducing yourself. Note: The maximum length of your answer is 5000 Words!"))
     # token count
     if "token_count" not in st.session_state:
         st.session_state.token_count = 0
@@ -228,10 +243,3 @@ if position and resume and st.session_state["authentication_status"]:
         credit_card_placeholder.caption(f"""
                         Progress: {int(len(st.session_state.resume_history) / 30 * 100)}% completed.""")
 
-hide_streamlit_style = """
-<style>
-    #MainMenu {visibility: hidden;}
-    footer {visibility: hidden;}
-</style>
-"""
-st.markdown(hide_streamlit_style, unsafe_allow_html=True)

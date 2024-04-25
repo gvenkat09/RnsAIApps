@@ -19,25 +19,39 @@ from speech_recognition.openai_whisper import save_wav_file, transcribe
 from audio_recorder_streamlit import audio_recorder
 from aws.synthesize_speech import synthesize_speech
 from IPython.display import Audio
-# from st_pages import hide_pages
+from st_pages import hide_pages
 #
 # hide_pages(['Behavioral Interview'])
-# hide_pages(['Resume Interview'])
+hide_pages(['ToDo List'])
+
+# Custom CSS to inject into the Streamlit page
+hide_streamlit_style = """
+        <style>
+            #MainMenu {visibility: hidden;}
+            footer {visibility: hidden;}
+            #root > div:nth-child(1) > div > div > div > div > section > div {
+                padding-top: 0rem;
+            }
+            .reportview-container .main .block-container{
+                padding-top: 0rem;
+            }
+        </style>
+"""
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
+
 
 def load_lottiefile(filepath: str):
     with open(filepath, "r") as f:
         return json.load(f)
-st_lottie(load_lottiefile("images/welcome.json"), speed=1, reverse=False, loop=True, quality="high", height=50)
+st_lottie(load_lottiefile("images/welcome.json"), speed=1, reverse=False, loop=False, quality="high", height=50)
 
-st.markdown("""\n""")
-st.markdown("""\n""")
-st.write("FAQs")
-st.markdown("""\n""")
-#st.markdown("""solutions to potential errors:""")
-with st.expander("""Why did I encounter errors when I tried to talk to the AI Interviewer?"""):
-    st.write("""
-    This is because the app failed to record. Make sure that your microphone is connected and that you have given permission to the browser to access your microphone.""")
-st.markdown("""\n""")
+# st.write("FAQs")
+# st.markdown("""\n""")
+# #st.markdown("""solutions to potential errors:""")
+# with st.expander("""Why did I encounter errors when I tried to talk to the AI Interviewer?"""):
+#     st.write("""
+#     This is because the app failed to record. Make sure that your microphone is connected and that you have given permission to the browser to access your microphone.""")
+# st.markdown("""\n""")
 st.markdown("""\n""")
 st.markdown("""\n""")
 
@@ -82,14 +96,14 @@ def initialize_session_state_jd():
         st.session_state.jd_history = []
         st.session_state.jd_history.append(Message("ai",
                                                    "Hello, Welcome to the interview. I am your interviewer today. I will ask you professional questions regarding the job description you submitted."
-                                                   "Please start by introducting a little bit about yourself. Note: The maximum length of your answer is 4097 tokens!"))
+                                                   "Please start by introducting a little bit about yourself. Note: The maximum length of your answer is 5000 Words!"))
     # token count
     if "token_count" not in st.session_state:
         st.session_state.token_count = 0
     if "jd_guideline" not in st.session_state:
         llm = ChatOpenAI(
         model_name = "gpt-3.5-turbo",
-        temperature = 0.8,)
+        temperature = 0.7,)
         st.session_state.jd_guideline = RetrievalQA.from_chain_type(
             llm=llm,
             chain_type_kwargs=st.session_state.jd_chain_type_kwargs, chain_type='stuff',
@@ -98,7 +112,7 @@ def initialize_session_state_jd():
     if "jd_screen" not in st.session_state:
         llm = ChatOpenAI(
             model_name="gpt-3.5-turbo",
-            temperature=0.8, )
+            temperature=0.7, )
         PROMPT = PromptTemplate(
             input_variables=["history", "input"],
             template="""I want you to act as an interviewer strictly following the guideline in the current conversation.
@@ -124,7 +138,7 @@ def initialize_session_state_jd():
     if 'jd_feedback' not in st.session_state:
         llm = ChatOpenAI(
             model_name="gpt-3.5-turbo",
-            temperature=0.8, )
+            temperature=0.4, )
         st.session_state.jd_feedback = ConversationChain(
             prompt=PromptTemplate(input_variables=["history", "input"], template=templates.feedback_template),
             llm=llm,
@@ -217,10 +231,3 @@ if jd and st.session_state["authentication_status"]:
 else:
     st.info("Please submit a job description to start the interview.")
 
-hide_streamlit_style = """
-<style>
-    #MainMenu {visibility: hidden;}
-    footer {visibility: hidden;}
-</style>
-"""
-st.markdown(hide_streamlit_style, unsafe_allow_html=True)

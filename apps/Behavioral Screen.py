@@ -19,10 +19,25 @@ from speech_recognition.openai_whisper import save_wav_file, transcribe
 from audio_recorder_streamlit import audio_recorder
 from aws.synthesize_speech import synthesize_speech
 from IPython.display import Audio
-# from st_pages import hide_pages
+from st_pages import hide_pages
 #
 # hide_pages(['Professional Interview'])
-# hide_pages(['Resume Interview'])
+hide_pages(['ToDo List'])
+
+# Custom CSS to inject into the Streamlit page
+hide_streamlit_style = """
+        <style>
+            #MainMenu {visibility: hidden;}
+            footer {visibility: hidden;}
+            #root > div:nth-child(1) > div > div > div > div > section > div {
+                padding-top: 0rem;
+            }
+            .reportview-container .main .block-container{
+                padding-top: 0rem;
+            }
+        </style>
+"""
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 def load_lottiefile(filepath: str):
 
@@ -31,17 +46,15 @@ def load_lottiefile(filepath: str):
     with open(filepath, "r") as f:
         return json.load(f)
 
-st_lottie(load_lottiefile("images/welcome.json"), speed=1, reverse=False, loop=True, quality="high", height=50)
+st_lottie(load_lottiefile("images/welcome.json"), speed=1, reverse=False, loop=False, quality="high", height=50)
 
 
-st.markdown("""\n""")
-st.markdown("""\n""")
-st.write("FAQs")
-st.markdown("""\n""")
-with st.expander("""Why did I encounter errors when I tried to talk to the AI Interviewer?"""):
-    st.write("""
-    This is because the app failed to record. Make sure that your microphone is connected and that you have given permission to the browser to access your microphone.""")
-st.markdown("""\n""")
+# st.write("FAQs")
+# st.markdown("""\n""")
+# with st.expander("""Why did I encounter errors when I tried to talk to the AI Interviewer?"""):
+#     st.write("""
+#     This is because the app failed to record. Make sure that your microphone is connected and that you have given permission to the browser to access your microphone.""")
+# st.markdown("""\n""")
 st.markdown("""\n""")
 st.markdown("""\n""")
 
@@ -101,7 +114,7 @@ def initialize_session_state():
     # interview history
     if "history" not in st.session_state:
         st.session_state.history = []
-        st.session_state.history.append(Message("ai", "Hello there! I am your interviewer today. I will access your soft skills through a series of questions. Let's get started! Please start by saying hello or introducing yourself. Note: The maximum length of your answer is 4097 tokens!"))
+        st.session_state.history.append(Message("ai", "Hello there! I am your interviewer today. I will access your soft skills through a series of questions. Let's get started! Please start by introducing yourself. Note: The maximum length of your answer is 5000 words!"))
     # token count
     if "token_count" not in st.session_state:
         st.session_state.token_count = 0
@@ -120,7 +133,7 @@ def initialize_session_state():
     if "conversation" not in st.session_state:
         llm = ChatOpenAI(
         model_name = "gpt-3.5-turbo",
-        temperature = 0.8,)
+        temperature = 0.7,)
         PROMPT = PromptTemplate(
             input_variables=["history", "input"],
             template="""I want you to act as an interviewer strictly following the guideline in the current conversation.
@@ -130,7 +143,7 @@ def initialize_session_state():
                             Do not ask the same question.
                             Do not repeat the question.
                             Do ask follow-up questions if necessary. 
-                            You name is GPTInterviewer.
+                            Your name is RNSInterviewer.
                             I want you to only reply as an interviewer.
                             Do not write all the conversation at once.
                             If there is an error, point it out.
@@ -145,7 +158,7 @@ def initialize_session_state():
     if "feedback" not in st.session_state:
         llm = ChatOpenAI(
         model_name = "gpt-3.5-turbo",
-        temperature = 0.5,)
+        temperature = 0.4,)
         st.session_state.feedback = ConversationChain(
             prompt=PromptTemplate(input_variables = ["history", "input"], template = templates.feedback_template),
             llm=llm,
@@ -243,12 +256,6 @@ else:
 
 
 
-hide_streamlit_style = """
-<style>
-    #MainMenu {visibility: hidden;}
-    footer {visibility: hidden;}
-</style>
-"""
-st.markdown(hide_streamlit_style, unsafe_allow_html=True)
+
 
 

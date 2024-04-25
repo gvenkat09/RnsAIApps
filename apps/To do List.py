@@ -1,6 +1,27 @@
 import streamlit as st
 import pandas as pd
+from st_pages import hide_pages
 
+
+# Custom CSS to inject into the Streamlit page
+hide_streamlit_style = """
+        <style>
+            #MainMenu {visibility: hidden;}
+            footer {visibility: hidden;}
+            #root > div:nth-child(1) > div > div > div > div > section > div {
+                padding-top: 0rem;
+            }
+            .reportview-container .main .block-container{
+                padding-top: 0rem;
+            }
+        </style>
+"""
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
+
+
+hide_pages(['Behavioral Interview'])
+hide_pages(['Professional Interview'])
+hide_pages(['Resume Interview'])
 
 # Function to load tasks or initialize an empty dataframe if no tasks are saved
 def load_tasks(user):
@@ -45,15 +66,5 @@ if not tasks_df.empty:
             tasks_df.at[index, 'Completed'] = completed
             save_tasks(tasks_df, st.session_state['user'])
 
-        # Logout button
-    if st.button('Logout'):
-        st.session_state['authenticated'] = False
-        st.experimental_rerun()
 
-hide_streamlit_style = """
-<style>
-    #MainMenu {visibility: hidden;}
-    footer {visibility: hidden;}
-</style>
-"""
-st.markdown(hide_streamlit_style, unsafe_allow_html=True)
+

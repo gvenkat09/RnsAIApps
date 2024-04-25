@@ -4,16 +4,16 @@ cookie:
   name: unique_key
 credentials:
   usernames:
-    test1:
-      email: test1@gmail.com
+    user1:
+      email: user1@gmail.com
       logged_in: false
-      name: Test 1
-      password: $2b$12$zyj/OZeq.KyuOo/zhXc.GuBm/L7T6m8ZJ7SewBeM9brcaw8QRQQsK
-    test2:
-      email: test2@gmail.com
+      name: User 1
+      password: $2b$12$D/oIsuODfN04LYo4nUsV3ORC2Ek2/G/Lu3fVJBJY0zj1r8U21TP9S
+    user2:
+      email: user2@gmail.com
       logged_in: false
-      name: Test 2
-      password: $2b$12$6yZaoK34c7YfLgocV9I.4uwBtd/mhO267nYUtODWz65yt9tDO7.XS
+      name: User 2
+      password: $2b$12$D/oIsuODfN04LYo4nUsV3ORC2Ek2/G/Lu3fVJBJY0zj1r8U21TP9S
 preauthorized:
   emails:
-  - admin@gmail.com
+  - venkat09docs@gmail.com

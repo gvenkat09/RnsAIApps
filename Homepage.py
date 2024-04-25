@@ -1,14 +1,30 @@
-from app_utils import switch_page
 import streamlit as st
-import yaml
-from yaml.loader import SafeLoader
 import streamlit_authenticator as stauth
+import yaml
 from PIL import Image
 from st_pages import Page, show_pages, hide_pages
 from streamlit_option_menu import option_menu
+from yaml.loader import SafeLoader
+
+from app_utils import switch_page
 
 im = Image.open("icon.png")
 st.set_page_config(page_title="RNS AI Apps", layout="centered", page_icon=im, initial_sidebar_state="collapsed")
+
+# Custom CSS to inject into the Streamlit page
+hide_streamlit_style = """
+        <style>
+            #MainMenu {visibility: hidden;}
+            footer {visibility: hidden;}
+            #root > div:nth-child(1) > div > div > div > div > section > div {
+                padding-top: 0rem;
+            }
+            .reportview-container .main .block-container{
+                padding-top: 0rem;
+            }
+        </style>
+"""
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 # Open YAML file
 
@@ -26,33 +42,37 @@ authenticator = stauth.Authenticate(
     config['preauthorized']
 )
 
-# Render the login widget
-name, authentication_status, username = authenticator.login('main',
-                                                            fields={'Form name': 'Login', 'Username': 'Username',
-                                                                    'Password': 'Password', 'Login': 'Login'})
+if not st.session_state['authentication_status']:
+    # Render the login widget
+    name, authentication_status, username = authenticator.login('main',
+                                                                fields={'Form name': 'Login', 'Username': 'Username',
+                                                                        'Password': 'Password', 'Login': 'Login'})
+    st.session_state['user'] = username
+    st.session_state['authenticated'] = True
 
 show_pages([
     Page("Homepage.py", "Home Page"),
     Page("apps\\Behavioral Screen.py", "Behavioral Interview"),
     Page("apps\\Professional Screen.py", "Professional Interview"),
-    Page("apps\\Resume Screen.py", "Resume Interview")
+    Page("apps\\Resume Screen.py", "Resume Interview"),
+    Page("apps\\Todo List2.py", "ToDo List")
 ])
 
 hide_pages(['Behavioral Interview'])
 hide_pages(['Professional Interview'])
 hide_pages(['Resume Interview'])
+hide_pages(['ToDo List'])
 
 
 def load_sidebar():
-
     with st.sidebar:
 
         st.markdown(f'# Welcome *{st.session_state["name"]}*')
 
         selected = option_menu(None, ["Interview Simulator", 'Todo List'],
-                               icons=['test', 'list'], default_index=0)
+                               icons=['list', 'list'], default_index=0)
 
-        st.markdown('## RNS Apps - V1.0.0')
+        st.markdown('## RNS Apps - V1.0.1')
         st.markdown(""" 
             #### Let's contact: [Venkat](https://www.linkedin.com/in/gvenkat09/)
 
@@ -67,7 +87,8 @@ def load_sidebar():
     if selected == "Interview Simulator":
         load_mock_interview_simulator()
     elif selected == 'Todo List':
-        st.info("This is Todo list")
+        st.session_state['user'] = st.session_state['user']
+        switch_page("ToDo List")
     else:
         st.info("Other Section")
 
@@ -78,7 +99,6 @@ def load_sidebar():
 
 
 def load_mock_interview_simulator():
-
     im = Image.open("icon.png")
     st.image(im, width=50)
     st.markdown(f"""## 🏆 RNS - Mock Interview Simulator <span style=color:#2E9BF5><font size=5>Beta</font></span>""",
@@ -132,6 +152,7 @@ def load_mock_interview_simulator():
         if st.button("Start Interview!"):
             switch_page("Behavioral Interview")
 
+
 if __name__ == "__main__":
     # Authenticate users
     if st.session_state["authentication_status"]:
@@ -145,5 +166,3 @@ if __name__ == "__main__":
     elif st.session_state["authentication_status"] is None:
         # st.sidebar.write("Please log in to see more options.")
         st.warning('Please enter your username and password')
-
-
